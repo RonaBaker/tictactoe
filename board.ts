@@ -1,7 +1,7 @@
 import {Player} from './player';
 
 export class Board{
-    cell : string[][] = [];
+    cell: string[][] = [];
     rows: number;
     columns: number;
     winner?: Player ;
@@ -10,22 +10,22 @@ export class Board{
         this.rows = rows; 
         this.columns = columns;
         this.cell = new Array(rows*columns);
-        for (let i=0; i< rows; i++) {
-            this.cell[i]=[];
-            for (let j=0; j<columns; j++){
-                this.cell[i][j]= '-';
+        for (let i = 0; i < rows; i++) {
+            this.cell[i] = [];
+            for (let j = 0; j < columns; j++){
+                this.cell[i][j] = '-';
             }
         }    
     }
 
     print(){
-        let tempStr: string = "";
-        for (let i=0; i< this.rows; i++) {
-            for (let j=0; j< this.columns; j++){
-                tempStr+= this.cell[i][j] +'  '
+        let tempStr: string = '';
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.columns; j++){
+                tempStr+= this.cell[i][j] + ' ';
             }
             console.log(tempStr);
-            tempStr = "";
+            tempStr = '';
         }  
     }
     
@@ -41,39 +41,39 @@ export class Board{
     }
 
     checkWinning(): boolean{
-        let strCheck: string = ""; 
-        for(let i=0; i<this.rows; i++){ // check rows
-            for(let j=0; j<this.columns; j++){
+        let strCheck: string = ''; 
+        for(let i = 0; i < this.rows; i++){ // check rows
+            for(let j = 0; j < this.columns; j++){
+                strCheck+= this.cell[i][j];
+            }
+            if(this.checkWinner(strCheck)){
+                return true;
+            }
+            strCheck = '';
+        }
+
+        for(let i = 0; i < this.columns; i++){ // check columns
+            for(let j = 0; j < this.rows; j++){
                 strCheck+=this.cell[i][j];
             }
             if(this.checkWinner(strCheck)){
                 return true;
             }
-            strCheck = "";
+            strCheck = '';
         }
 
-        for(let i=0; i<this.columns; i++){ // check columns
-            for(let j=0; j<this.rows; j++){
-                strCheck+=this.cell[i][j];
-            }
-            if(this.checkWinner(strCheck)){
-                return true;
-            }
-            strCheck = "";
-        }
-
-        for(let i=0; i<this.rows; i++){ // check first diagonal
-            strCheck+=this.cell[i][i];
+        for(let i = 0; i < this.rows; i++){ // check first diagonal
+            strCheck+= this.cell[i][i];
         }
         if(this.checkWinner(strCheck)){
             return true;
         }
 
-        strCheck = "";
-        for(let i=0; i<this.rows; i++){ // check second diagonal
-            for(let j=0; j<this.columns; j++){
+        strCheck = '';
+        for(let i = 0; i < this.rows; i++){ // check second diagonal
+            for(let j = 0; j < this.columns; j++){
                 if(i+j === this.rows-1){
-                    strCheck+=this.cell[i][j];
+                    strCheck+= this.cell[i][j];
                 }
             }
         }

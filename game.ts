@@ -6,7 +6,7 @@ export class Game{
     movesHistory : string[] = [];
     rows: number;  
     columns: number; 
-    playerList: Player[]= [];
+    playerList: Player[] = [];
     board: Board;
     status: GameStatus = GameStatus.InProgress;
     activePlayer? : Player; 
@@ -26,24 +26,27 @@ export class Game{
     }
 
     printSummary(){
+        let flag: boolean = false;
         if(this.status === GameStatus.InProgress){
-            console.log("Game is in progress");
+            console.log('Game is in progress');
         }
         else if(this.status === GameStatus.Completed){
-            console.log("Game completed");
+            console.log('Game completed');
             for(let player of this.playerList){
                 if(player.sign === this.board.winnerSign){
-                    console.log(player.name + " won!");
-                    return;
+                    console.log(`${player.name} won!`);
+                    flag = true;
                 }
             }
-            console.log("Tie game");
+            if (flag === false){
+                console.log('Tie game');
+            }
         }
         if (this.movesHistory.length === 0){
-            console.log("No moves have been made");
+            console.log('No moves have been made');
         }
         else{
-            console.log("Moves that have been made:");
+            console.log('Moves that have been made:');
             for (let move of this.movesHistory) {
                 console.log(move); 
             }
@@ -60,14 +63,14 @@ export class Game{
         }
         else{ // cell isn't occupied 
             this.board.setMove(row, col, this.activePlayer!.sign);
-            this.movesHistory.push( "set '"+ this.activePlayer!.sign +"' in ("+ row +","+ col +")");
+            this.movesHistory.push(`set ${this.activePlayer!.sign} in (${row} , ${col})`);
             this.updateActivePlayer();
         }
         return true;       
     }
 
     updateActivePlayer(){
-        if (this.playerTurn+1 >= this.numPlayer){
+        if (this.playerTurn + 1 >= this.numPlayer){
             this.playerTurn = 0;
         }
         else{
